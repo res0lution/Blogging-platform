@@ -1,0 +1,32 @@
+{
+  "name": "blog-platform",
+  "version": "1.0.0",
+  "description": "Blog platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Res01uti0n/Blogging-platform.git"
+  },
+  "keywords": [
+    "react",
+    "next.js"
+  ],
+  "author": "@resolution",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Res01uti0n/Blogging-platform/issues"
+  },
+  "homepage": "https://github.com/Res01uti0n/Blogging-platform#readme",
+  "dependencies": {
+    "next": "^9.4.2",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "reactstrap": "^8.4.1"
+  }
+}
