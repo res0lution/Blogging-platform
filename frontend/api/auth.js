@@ -30,9 +30,9 @@ export const signin = (user) => {
 };
 
 export const signout = (next) => {
-  removeCookie("token")
-  removeLocalStorage("user")
-  next()
+  removeCookie("token");
+  removeLocalStorage("user");
+  next();
 
   return fetch(`${API}/api/signout`, {
     method: "GET",

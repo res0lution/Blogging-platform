@@ -30,7 +30,11 @@ const Signin = () => {
         setValues({ ...values, error: data.error });
       } else {
         authenticate(data, () => {
-          Router.push("/");
+          if (isAuth && isAuth.role === 1) {
+            Router.push("/admin");
+          } else {
+            Router.push("/user");
+          }
         });
       }
     });
@@ -82,7 +86,7 @@ const Signin = () => {
 
         <div>
           <button type="submit" className="btn btn-primary">
-            Signup
+            Signin
           </button>
         </div>
       </form>
