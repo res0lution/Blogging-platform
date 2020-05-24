@@ -9,6 +9,7 @@ const blogRoutes = require("./routes/blog.routes");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
 const categoryRoutes = require("./routes/category.routes");
+const tagRoutes = require("./routes/tag.routes");
 
 require("dotenv").config();
 
@@ -22,6 +23,7 @@ app.use("/api", blogRoutes);
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
+app.use("/api", tagRoutes);
 
 if (process.env.NODE_ENV === "development") {
   app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
