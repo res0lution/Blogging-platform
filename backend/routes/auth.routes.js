@@ -13,8 +13,10 @@ const {
 
 const { runValidation } = require("../validators/index");
 
+router.get("/signout", signout);
+
 router.post("/signup", userSignupValidator, runValidation, signup);
 router.post("/signin", userSigninValidator, runValidation, signin);
-router.get("/signout", signout);
+
 
 module.exports = router;

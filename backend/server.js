@@ -42,4 +42,4 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => console.log("DB connected"))
-  .catch(() => "Error! Can`t connect to DB");
+  .catch(() => console.error("Error!!! Can`t connect to DB"));

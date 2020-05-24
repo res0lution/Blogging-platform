@@ -6,6 +6,9 @@ const { runValidation } = require("../validators");
 const { categoryCreateValidator } = require("../validators/category");
 const { requireSignin, adminMiddleware } = require("../controllers/auth");
 
+router.get("/categories", list);
+router.get("/category/:slug", read);
+
 router.post(
   "/category",
   categoryCreateValidator,
@@ -14,8 +17,7 @@ router.post(
   adminMiddleware,
   create
 );
-router.get("/categories", list);
-router.get("/category/:slug", read);
+
 router.delete("/category/:slug", requireSignin, adminMiddleware, remove);
 
 module.exports = router;

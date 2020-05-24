@@ -2,7 +2,7 @@ const slugify = require("slugify");
 
 const { errorHandler } = require("../helpers/dbErrorHandler");
 const Category = require("../models/category");
-//const Blog = require("../models/blog");
+const Blog = require("../models/blog");
 
 exports.create = (req, res) => {
   const { name } = req.body;
@@ -43,9 +43,7 @@ exports.read = (req, res) => {
       });
     }
 
-    res.json({ category: category })//temp
-
-    /*Blog.find({ categories: category })
+    Blog.find({ categories: category })
       .populate("categories", "_id name slug")
       .populate("tags", "_id name slug")
       .populate("postedBy", "_id name username")
@@ -60,7 +58,7 @@ exports.read = (req, res) => {
         }
 
         res.json({ category: category, blogs: data });
-      });*/
+      });
   });
 };
 
