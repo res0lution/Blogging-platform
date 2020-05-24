@@ -4,7 +4,7 @@ import { API } from "../config";
 import { handleResponse } from "./auth";
 
 export const create = (category, token) => {
-  return fetch(`${API}/api/category`, {
+  return fetch(`${API}/category`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -21,7 +21,7 @@ export const create = (category, token) => {
 };
 
 export const getCategories = () => {
-  return fetch(`${API}/api/categories`, {
+  return fetch(`${API}/categories`, {
     method: "GET",
   })
     .then((response) => {
@@ -31,7 +31,7 @@ export const getCategories = () => {
 };
 
 export const singleCategory = (slug) => {
-  return fetch(`${API}/api/category/${slug}`, {
+  return fetch(`${API}/category/${slug}`, {
     method: "GET",
   })
     .then((response) => {
@@ -41,7 +41,7 @@ export const singleCategory = (slug) => {
 };
 
 export const removeCategory = (slug, token) => {
-  return fetch(`${API}/api/category/${slug}`, {
+  return fetch(`${API}/category/${slug}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",

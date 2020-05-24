@@ -4,7 +4,7 @@ import { API } from "../config";
 import { handleResponse } from "./auth";
 
 export const create = (tag, token) => {
-  return fetch(`${API}/api/tag`, {
+  return fetch(`${API}/tag`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -21,7 +21,7 @@ export const create = (tag, token) => {
 };
 
 export const getTags = () => {
-  return fetch(`${API}/api/tags`, {
+  return fetch(`${API}/tags`, {
     method: "GET",
   })
     .then((response) => {
@@ -31,7 +31,7 @@ export const getTags = () => {
 };
 
 export const singleTag = (slug) => {
-  return fetch(`${API}/api/tag/${slug}`, {
+  return fetch(`${API}/tag/${slug}`, {
     method: "GET",
   })
     .then((response) => {
@@ -41,7 +41,7 @@ export const singleTag = (slug) => {
 };
 
 export const removeTag = (slug, token) => {
-  return fetch(`${API}/api/tag/${slug}`, {
+  return fetch(`${API}/tag/${slug}`, {
     method: "DELETE",
     headers: {
       Accept: "application/json",
@@ -55,3 +55,4 @@ export const removeTag = (slug, token) => {
     })
     .catch((err) => console.log(err));
 };
+
