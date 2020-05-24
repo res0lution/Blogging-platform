@@ -3,6 +3,19 @@ import cookie from "js-cookie";
 
 import { API } from "../config";
 
+export const handleResponse = (response) => {
+  if (response.status === 401) {
+    signout(() => {
+      Router.push({
+        pathname: "/signin",
+        query: {
+          message: "Your session is expired. Please signin",
+        },
+      });
+    });
+  }
+};
+
 export const signup = (user) => {
   return fetch(`${API}/api/signup`, {
     method: "POST",
