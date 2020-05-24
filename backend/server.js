@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const blogRoutes = require("./routes/blog.routes");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
+const categoryRoutes = require("./routes/category.routes");
 
 require("dotenv").config();
 
@@ -20,6 +21,7 @@ app.use(cors());
 app.use("/api", blogRoutes);
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+app.use("/api", categoryRoutes);
 
 if (process.env.NODE_ENV === "development") {
   app.use(cors({ origin: `${process.env.CLIENT_URL}` }));
