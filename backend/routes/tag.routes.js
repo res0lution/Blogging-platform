@@ -20,4 +20,4 @@ router.post(
 
 router.delete("/tag/:slug", requireSignin, adminMiddleware, remove);
 
-module.exports = router;
+module.exports = router; 

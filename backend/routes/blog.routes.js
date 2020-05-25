@@ -1,5 +1,4 @@
 const express = require("express");
-const router = express.Router();
 
 const {
   create,
@@ -19,6 +18,8 @@ const {
   authMiddleware,
   canUpdateDeleteBlog,
 } = require("../controllers/auth");
+
+const router = express.Router();
 
 router.get("/blogs", list);
 router.get("/blog/:slug", read);

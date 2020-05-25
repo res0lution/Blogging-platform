@@ -7,7 +7,6 @@ const { errorHandler } = require("../helpers/dbErrorHandler");
 exports.create = (req, res) => {
   const { name } = req.body;
   let slug = slugify(name).toLowerCase();
-
   let tag = new Tag({ name, slug });
 
   tag.save((err, data) => {
@@ -43,8 +42,6 @@ exports.read = (req, res) => {
         error: "Tag not found",
       });
     }
-
-    res.json({ tag: tag})
     
     Blog.find({ tags: tag })
       .populate("categories", "_id name slug")
@@ -59,6 +56,7 @@ exports.read = (req, res) => {
             error: errorHandler(err),
           });
         }
+
         res.json({ tag: tag, blogs: data });
       });
   });
@@ -73,6 +71,7 @@ exports.remove = (req, res) => {
         error: errorHandler(err),
       });
     }
+    
     res.json({
       message: "Tag deleted successfully",
     });

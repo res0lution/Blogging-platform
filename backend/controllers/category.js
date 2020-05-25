@@ -71,7 +71,7 @@ exports.remove = (req, res) => {
         error: errorHandler(err),
       });
     }
-
+    
     res.json({
       message: "Category deleted successfully",
     });

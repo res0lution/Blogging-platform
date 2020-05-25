@@ -40,6 +40,7 @@ exports.publicProfile = (req, res) => {
             error: errorHandler(err),
           });
         }
+
         user.photo = undefined;
         user.salt = undefined;
         user.hashed_password = undefined;
@@ -54,6 +55,7 @@ exports.publicProfile = (req, res) => {
 exports.update = (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtension = true;
+
   form.parse(req, (err, fields, files) => {
     if (err) {
       return res.status(400).json({
@@ -114,14 +116,14 @@ exports.update = (req, res) => {
 
 exports.photo = (req, res) => {
   const username = req.params.username;
-
+  
   User.findOne({ username }).exec((err, user) => {
     if (err || !user) {
       return res.status(400).json({
         error: "User not found",
       });
     }
-    
+
     if (user.photo.data) {
       res.set("Content-Type", user.photo.contentType);
       return res.send(user.photo.data);

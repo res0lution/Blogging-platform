@@ -14,6 +14,7 @@ const User = require("../models/user");
 exports.create = (req, res) => {
   let form = new formidable.IncomingForm();
   form.keepExtensions = true;
+
   form.parse(req, (err, fields, files) => {
     if (err) {
       return res.status(400).json({
@@ -121,6 +122,7 @@ exports.list = (req, res) => {
           error: errorHandler(err),
         });
       }
+
       res.json(data);
     });
 };
@@ -169,6 +171,7 @@ exports.listAllBlogsCategoriesTags = (req, res) => {
           }
 
           tags = t;
+
           res.json({ blogs, categories, tags, size: blogs.length });
         });
       });
@@ -191,6 +194,7 @@ exports.read = (req, res) => {
           error: errorHandler(err),
         });
       }
+
       res.json(data);
     });
 };
@@ -305,7 +309,6 @@ exports.listRelated = (req, res) => {
           error: "Blogs not found",
         });
       }
-
       res.json(blogs);
     });
 };
@@ -328,7 +331,6 @@ exports.listSearch = (req, res) => {
             error: errorHandler(err),
           });
         }
-
         res.json(blogs);
       }
     ).select("-photo -body");
