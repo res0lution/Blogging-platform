@@ -74,7 +74,7 @@ const Category = () => {
 
   const clickSubmit = (e) => {
     e.preventDefault();
-
+    
     create({ name }, token).then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error, success: false });
@@ -144,16 +144,16 @@ const Category = () => {
   );
 
   return (
-    <React.Fragment>
+    <>
       {showSuccess()}
       {showError()}
       {showRemoved()}
-
+      
       <div onMouseMove={mouseMoveHandler}>
         {newCategoryFom()}
         {showCategories()}
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

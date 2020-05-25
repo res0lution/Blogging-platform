@@ -1,20 +1,34 @@
-import React from "react";
+import { withRouter } from "next/router";
 
 import Layout from "../components/Layout";
-import Signin from "../components/auth/Signin";
+import SigninComponent from "../components/auth/SigninComponent";
 
-const SigninPage = () => {
+const Signin = ({ router }) => {
+  const showRedirectMessage = () => {
+    if (router.query.message) {
+      return <div className="alert alert-danger">{router.query.message}</div>;
+    } else {
+      return;
+    }
+  };
+
   return (
     <Layout>
-      <h1 className="text-center">Signin</h1>
+      <div className="container-fluid">
+        <h2 className="text-center pt-4 pb-4">Signin</h2>
 
-      <div className="row">
-        <div className="col-md-8 offset-md-2">
-          <Signin />
+        <div className="row">
+          <div className="col-md-6 offset-md-3">{showRedirectMessage()}</div>
+        </div>
+
+        <div className="row">
+          <div className="col-md-6 offset-md-3">
+            <SigninComponent />
+          </div>
         </div>
       </div>
     </Layout>
   );
 };
 
-export default SigninPage;
+export default withRouter(Signin);

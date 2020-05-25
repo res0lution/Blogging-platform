@@ -54,8 +54,8 @@ const ProfileUpdate = () => {
   const handleChange = (name) => (e) => {
     const value = name === "photo" ? e.target.files[0] : e.target.value;
     let userFormData = new FormData();
-    userFormData.set(name, value);
 
+    userFormData.set(name, value);
     setValues({
       ...values,
       [name]: value,
@@ -123,7 +123,7 @@ const ProfileUpdate = () => {
           className="form-control"
         />
       </div>
-
+      
       <div className="form-group">
         <label className="text-muted">About</label>
         <textarea

@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Router from "next/router";
+import Link from "next/link";
 
-import { signup, isAuth } from "../../api/auth";
+import { isAuth, preSignup } from "../../api/auth";
+import LoginGoogle from "./LoginGoogle";
+import LoginFacebook from "./LoginFacebook";
 
-const Signup = () => {
+const SignupComponent = () => {
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -14,30 +17,28 @@ const Signup = () => {
     showForm: true,
   });
 
+  const { name, email, password, error, loading, message, showForm } = values;
+
   useEffect(() => {
-    isAuth() && Router.push("/");
+    isAuth() && Router.push(`/`);
   }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setValues({ ...values, error: false, loading: true });
-    const user = {
-      name: values.name,
-      email: values.email,
-      password: values.password,
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setValues({ ...values, loading: true, error: false });
+    const user = { name, email, password };
 
-    signup(user).then((data) => {
+    preSignup(user).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: data.error, loading: false });
       } else {
         setValues({
           ...values,
-          error: "",
-          loading: false,
           name: "",
           email: "",
           password: "",
+          error: "",
+          loading: false,
           message: data.message,
           showForm: false,
         });
@@ -45,35 +46,25 @@ const Signup = () => {
     });
   };
 
-  const handleChange = (name) => (event) => {
-    setValues({ ...values, error: false, [name]: event.target.value });
+  const handleChange = (name) => (e) => {
+    setValues({ ...values, error: false, [name]: e.target.value });
   };
 
   const showLoading = () =>
-    values.loading ? <div className="alert alert-info">Loading...</div> : "";
-
+    loading ? <div className="alert alert-info">Loading...</div> : "";
   const showError = () =>
-    values.error ? (
-      <div className="alert alert-danger">{values.error}</div>
-    ) : (
-      ""
-    );
-
+    error ? <div className="alert alert-danger">{error}</div> : "";
   const showMessage = () =>
-    values.message ? (
-      <div className="alert alert-info">{values.message}</div>
-    ) : (
-      ""
-    );
+    message ? <div className="alert alert-info">{message}</div> : "";
 
   const signupForm = () => {
     return (
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input
-            type="text"
-            value={values.name}
+            value={name}
             onChange={handleChange("name")}
+            type="text"
             className="form-control"
             placeholder="Type your name"
           />
@@ -81,9 +72,9 @@ const Signup = () => {
 
         <div className="form-group">
           <input
-            type="email"
-            value={values.email}
+            value={email}
             onChange={handleChange("email")}
+            type="email"
             className="form-control"
             placeholder="Type your email"
           />
@@ -91,18 +82,16 @@ const Signup = () => {
 
         <div className="form-group">
           <input
-            type="password"
-            value={values.password}
+            value={password}
             onChange={handleChange("password")}
+            type="password"
             className="form-control"
             placeholder="Type your password"
           />
         </div>
 
         <div>
-          <button type="submit" className="btn btn-primary">
-            Signup
-          </button>
+          <button className="btn btn-primary">Signup</button>
         </div>
       </form>
     );
@@ -110,12 +99,21 @@ const Signup = () => {
 
   return (
     <>
-      {showLoading()}
       {showError()}
+      {showLoading()}
       {showMessage()}
-      {signupForm()}
+
+      <LoginGoogle />
+      <LoginFacebook />
+
+      {showForm && signupForm()}
+      <br />
+
+      <Link href="/auth/password/forgot">
+        <a className="btn btn-outline-danger btn-sm">Forgot password</a>
+      </Link>
     </>
   );
 };
 
-export default Signup;
+export default SignupComponent;

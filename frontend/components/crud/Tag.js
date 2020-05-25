@@ -47,13 +47,13 @@ const Tag = () => {
 
   const deleteConfirm = (slug) => {
     let answer = window.confirm("Are you sure you want to delete this tag?");
+
     if (answer) {
       deleteTag(slug);
     }
   };
 
   const deleteTag = (slug) => {
-    // console.log('delete', slug);
     removeTag(slug, token).then((data) => {
       if (data.error) {
         console.log(data.error);
@@ -72,12 +72,11 @@ const Tag = () => {
 
   const clickSubmit = (e) => {
     e.preventDefault();
-    // console.log('create category', name);
+    
     create({ name }, token).then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error, success: false });
       } else {
-        // setValues({ ...values, error: false, success: false, name: '', removed: !removed, reload: !reload });
         setValues({
           ...values,
           error: false,
@@ -133,6 +132,7 @@ const Tag = () => {
           required
         />
       </div>
+
       <div>
         <button type="submit" className="btn btn-primary">
           Create
@@ -142,15 +142,16 @@ const Tag = () => {
   );
 
   return (
-    <React.Fragment>
+    <>
       {showSuccess()}
       {showError()}
       {showRemoved()}
+      
       <div onMouseMove={mouseMoveHandler}>
         {newTagFom()}
         {showTags()}
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

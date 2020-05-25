@@ -11,12 +11,10 @@ const Category = ({ category, blogs, query }) => {
       <title>
         {category.name} | {APP_NAME}
       </title>
-
       <meta
         name="description"
         content={`Best programming tutorials on ${category.name}`}
       />
-
       <link rel="canonical" href={`${DOMAIN}/categories/${query.slug}`} />
       <meta property="og:title" content={`${category.name}| ${APP_NAME}`} />
       <meta
@@ -41,7 +39,7 @@ const Category = ({ category, blogs, query }) => {
   );
 
   return (
-    <React.Fragment>
+    <>
       {head()}
 
       <Layout>
@@ -62,7 +60,7 @@ const Category = ({ category, blogs, query }) => {
           </div>
         </main>
       </Layout>
-    </React.Fragment>
+    </>
   );
 };
 

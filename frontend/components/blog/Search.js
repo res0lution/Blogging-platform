@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useState } from "react";
-import { listSearch } from "../../actions/blog";
-import { withRouter } from "next/router";
+
+import { listSearch } from "../../api/blog";
 
 const Search = () => {
   const [values, setValues] = useState({
@@ -77,7 +77,7 @@ const Search = () => {
   return (
     <div className="container-fluid">
       <div className="pt-3 pb-5">{searchForm()}</div>
-
+      
       {searched && (
         <div style={{ marginTop: "-120px", marginBottom: "-80px" }}>
           {searchedBlogs(results)}
@@ -87,4 +87,4 @@ const Search = () => {
   );
 };
 
-export default withRouter(Search);
+export default Search;

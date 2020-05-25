@@ -3,7 +3,7 @@ import Link from "next/link";
 import moment from "moment";
 
 import Layout from "../../components/Layout";
-import { userPublicProfile } from "../../actions/user";
+import { userPublicProfile } from "../../api/user";
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from "../../config";
 import ContactForm from "../../components/form/ContactForm";
 
@@ -47,8 +47,9 @@ const UserProfile = ({ user, blogs, query }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       {head()}
+
       <Layout>
         <div className="container">
           <div className="row">
@@ -63,6 +64,7 @@ const UserProfile = ({ user, blogs, query }) => {
                         Joined {moment(user.createdAt).fromNow()}
                       </p>
                     </div>
+
                     <div className="col-md-4">
                       <img
                         src={`${API}/user/photo/${user.username}`}
@@ -101,6 +103,7 @@ const UserProfile = ({ user, blogs, query }) => {
                     Message {user.name}
                   </h5>
                   <br />
+
                   <ContactForm authorEmail={user.email} />
                 </div>
               </div>
@@ -108,7 +111,7 @@ const UserProfile = ({ user, blogs, query }) => {
           </div>
         </div>
       </Layout>
-    </React.Fragment>
+    </>
   );
 };
 

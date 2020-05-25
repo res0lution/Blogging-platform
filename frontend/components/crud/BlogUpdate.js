@@ -1,24 +1,23 @@
 import { useState, useEffect } from "react";
-import Router from "next/router";
+import Router, {withRouter} from "next/router";
 import dynamic from "next/dynamic";
-import { withRouter } from "next/router";
 
-import "../../node_modules/react-quill/dist/quill.snow.css";
-import { getCookie, isAuth } from "../../actions/auth";
-import { getCategories } from "../../actions/category";
-import { getTags } from "../../actions/tag";
-import { singleBlog, updateBlog } from "../../actions/blog";
-import { QuillModules, QuillFormats } from "../../helpers/quill";
-import { API } from "../../config";
+import { getCookie, isAuth } from "../../api/auth";
+import { getCategories } from "../../api/category";
+import { getTags } from "../../api/tag";
+import { singleBlog, updateBlog } from "../../api/blog";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "../../node_modules/react-quill/dist/quill.snow.css";
+import { QuillModules, QuillFormats } from "../../helpers/quill";
+import { API } from "../../config";
 
 const BlogUpdate = ({ router }) => {
   const [body, setBody] = useState("");
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
   const [checked, setChecked] = useState([]);
-  const [checkedTag, setCheckedTag] = useState([]); 
+  const [checkedTag, setCheckedTag] = useState([]);
   const [values, setValues] = useState({
     title: "",
     error: "",
@@ -56,7 +55,7 @@ const BlogUpdate = ({ router }) => {
 
   const setCategoriesArray = (blogCategories) => {
     let ca = [];
-    blogCategories.map((c, i) => {
+    blogCategories.map((c) => {
       ca.push(c._id);
     });
     setChecked(ca);
@@ -64,7 +63,7 @@ const BlogUpdate = ({ router }) => {
 
   const setTagsArray = (blogTags) => {
     let ta = [];
-    blogTags.map((t, i) => {
+    blogTags.map((t) => {
       ta.push(t._id);
     });
     setCheckedTag(ta);
@@ -189,6 +188,7 @@ const BlogUpdate = ({ router }) => {
 
   const editBlog = (e) => {
     e.preventDefault();
+
     updateBlog(formData, token, router.query.slug).then((data) => {
       if (data.error) {
         setValues({ ...values, error: data.error, loading: false });
@@ -199,7 +199,6 @@ const BlogUpdate = ({ router }) => {
           title: "",
           success: `Blog titled "${data.title}" is successfully updated`,
         });
-
         if (isAuth() && isAuth().role === 1) {
           Router.replace(`/admin`);
         } else if (isAuth() && isAuth().role === 0) {

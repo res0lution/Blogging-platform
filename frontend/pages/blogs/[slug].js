@@ -32,7 +32,6 @@ const SingleBlog = ({ blog, query }) => {
       <title>
         {blog.title} | {APP_NAME}
       </title>
-
       <meta name="description" content={blog.mdesc} />
       <link rel="canonical" href={`${DOMAIN}/blogs/${query.slug}`} />
       <meta property="og:title" content={`${blog.title}| ${APP_NAME}`} />
@@ -88,7 +87,7 @@ const SingleBlog = ({ blog, query }) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       {head()}
 
       <Layout>
@@ -144,7 +143,7 @@ const SingleBlog = ({ blog, query }) => {
           </article>
         </main>
       </Layout>
-    </React.Fragment>
+    </>
   );
 };
 

@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Router from "next/router";
+import Link from "next/link";
 
 import { signin, authenticate, isAuth } from "../../api/auth";
+import LoginGoogle from "./LoginGoogle";
+import LoginFacebook from "./LoginFacebook";
 
-const Signin = () => {
+const SigninComponent = () => {
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -13,62 +16,51 @@ const Signin = () => {
     showForm: true,
   });
 
+  const { email, password, error, loading, message, showForm } = values;
+
   useEffect(() => {
-    isAuth() && Router.push("/");
+    isAuth() && Router.push(`/`);
   }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setValues({ ...values, error: false, loading: true });
-    const user = {
-      email: values.email,
-      password: values.password,
-    };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setValues({ ...values, loading: true, error: false });
+    const user = { email, password };
 
     signin(user).then((data) => {
       if (data.error) {
-        setValues({ ...values, error: data.error });
+        setValues({ ...values, error: data.error, loading: false });
       } else {
         authenticate(data, () => {
-          if (isAuth && isAuth.role === 1) {
-            Router.push("/admin");
+          if (isAuth() && isAuth().role === 1) {
+            Router.push(`/admin`);
           } else {
-            Router.push("/user");
+            Router.push(`/user`);
           }
         });
       }
     });
   };
 
-  const handleChange = (name) => (event) => {
-    setValues({ ...values, error: false, [name]: event.target.value });
+  const handleChange = (name) => (e) => {
+    setValues({ ...values, error: false, [name]: e.target.value });
   };
 
   const showLoading = () =>
-    values.loading ? <div className="alert alert-info">Loading...</div> : "";
-
+    loading ? <div className="alert alert-info">Loading...</div> : "";
   const showError = () =>
-    values.error ? (
-      <div className="alert alert-danger">{values.error}</div>
-    ) : (
-      ""
-    );
-
+    error ? <div className="alert alert-danger">{error}</div> : "";
   const showMessage = () =>
-    values.message ? (
-      <div className="alert alert-info">{values.message}</div>
-    ) : (
-      ""
-    );
+    message ? <div className="alert alert-info">{message}</div> : "";
 
   const signinForm = () => {
     return (
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <input
-            type="email"
-            value={values.email}
+            value={email}
             onChange={handleChange("email")}
+            type="email"
             className="form-control"
             placeholder="Type your email"
           />
@@ -76,18 +68,16 @@ const Signin = () => {
 
         <div className="form-group">
           <input
-            type="password"
-            value={values.password}
+            value={password}
             onChange={handleChange("password")}
+            type="password"
             className="form-control"
             placeholder="Type your password"
           />
         </div>
 
         <div>
-          <button type="submit" className="btn btn-primary">
-            Signin
-          </button>
+          <button className="btn btn-primary">Signin</button>
         </div>
       </form>
     );
@@ -95,12 +85,21 @@ const Signin = () => {
 
   return (
     <>
-      {showLoading()}
       {showError()}
+      {showLoading()}
       {showMessage()}
-      {signinForm()}
+
+      <LoginGoogle />
+      <LoginFacebook />
+
+      {showForm && signinForm()}
+      <br />
+
+      <Link href="/auth/password/forgot">
+        <a className="btn btn-outline-danger btn-sm">Forgot password</a>
+      </Link>
     </>
   );
 };
 
-export default Signin;
+export default SigninComponent;

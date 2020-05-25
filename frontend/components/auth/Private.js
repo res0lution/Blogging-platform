@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import Router from "next/router";
 
 import { isAuth } from "../../api/auth";
@@ -9,6 +9,7 @@ const Private = ({ children }) => {
       Router.push(`/signin`);
     }
   }, []);
+
   return <>{children}</>;
 };
 

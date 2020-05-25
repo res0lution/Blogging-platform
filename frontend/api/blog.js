@@ -143,6 +143,7 @@ export const listSearch = (params) => {
   console.log("search params", params);
   let query = queryString.stringify(params);
   console.log("query params", query);
+  
   return fetch(`${API}/blogs/search?${query}`, {
     method: "GET",
   })

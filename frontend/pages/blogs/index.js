@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import { withRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 
 import Layout from "../../components/Layout";
 import { listBlogsWithCategoriesAndTags } from "../../api/blog";
@@ -19,12 +19,10 @@ const Blogs = ({
   const head = () => (
     <Head>
       <title>Programming blogs | {APP_NAME}</title>
-
       <meta
         name="description"
         content="Programming blogs and tutorials on react node next vue php laravel and web developoment"
       />
-
       <link rel="canonical" href={`${DOMAIN}${router.pathname}`} />
       <meta
         property="og:title"
@@ -40,11 +38,11 @@ const Blogs = ({
 
       <meta
         property="og:image"
-        content={`${DOMAIN}/static/images/nextblog.jpg`}
+        content={`${DOMAIN}/static/images/seoblog.jpg`}
       />
       <meta
         property="og:image:secure_url"
-        content={`${DOMAIN}/static/images/nextblog.jpg`}
+        content={`${DOMAIN}/static/images/seoblog.jpg`}
       />
       <meta property="og:image:type" content="image/jpg" />
       <meta property="fb:app_id" content={`${FB_APP_ID}`} />
@@ -117,7 +115,7 @@ const Blogs = ({
   };
 
   return (
-    <React.Fragment>
+    <>
       {head()}
 
       <Layout>
@@ -129,7 +127,7 @@ const Blogs = ({
                   Programming Blogs and Tutorials
                 </h1>
               </div>
-              
+
               <section>
                 <div className="pb-5 text-center">
                   {showAllCategories()}
@@ -145,7 +143,7 @@ const Blogs = ({
           <div className="text-center pt-5 pb-5">{loadMoreButton()}</div>
         </main>
       </Layout>
-    </React.Fragment>
+    </>
   );
 };
 

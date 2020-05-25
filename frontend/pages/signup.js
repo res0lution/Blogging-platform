@@ -1,20 +1,20 @@
-import React from "react";
-
 import Layout from "../components/Layout";
-import Signup from "../components/auth/Signup";
+import SignupComponent from "../components/auth/SignupComponent";
 
-const SignupPage = () => {
+const Signup = () => {
   return (
     <Layout>
-      <h1 className="text-center">Signup</h1>
-
-      <div className="row">
-        <div className="col-md-8 offset-md-2">
-          <Signup />
+      <div className="container-fluid">
+        <h2 className="text-center pt-4 pb-4">Signup</h2>
+        
+        <div className="row">
+          <div className="col-md-6 offset-md-3">
+            <SignupComponent />
+          </div>
         </div>
       </div>
     </Layout>
   );
 };
 
-export default SignupPage;
+export default Signup;

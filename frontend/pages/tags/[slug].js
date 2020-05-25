@@ -11,12 +11,10 @@ const Tag = ({ tag, blogs, query }) => {
       <title>
         {tag.name} | {APP_NAME}
       </title>
-
       <meta
         name="description"
         content={`Best programming tutorials on ${tag.name}`}
       />
-
       <link rel="canonical" href={`${DOMAIN}/categories/${query.slug}`} />
       <meta property="og:title" content={`${tag.name}| ${APP_NAME}`} />
       <meta
@@ -41,7 +39,7 @@ const Tag = ({ tag, blogs, query }) => {
   );
 
   return (
-    <React.Fragment>
+    <>
       {head()}
 
       <Layout>
@@ -62,7 +60,7 @@ const Tag = ({ tag, blogs, query }) => {
           </div>
         </main>
       </Layout>
-    </React.Fragment>
+    </>
   );
 };
 

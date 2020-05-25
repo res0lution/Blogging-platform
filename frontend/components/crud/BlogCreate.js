@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { withRouter } from "next/router";
 
 import { getCookie } from "../../api/auth";
 import { getCategories } from "../../api/category";
@@ -11,7 +10,7 @@ import "../../node_modules/react-quill/dist/quill.snow.css";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-const CreateBlog = ({ router }) => {
+const CreateBlog = () => {
   const blogFromLS = () => {
     if (typeof window === "undefined") {
       return false;
@@ -26,8 +25,8 @@ const CreateBlog = ({ router }) => {
 
   const [categories, setCategories] = useState([]);
   const [tags, setTags] = useState([]);
-  const [checked, setChecked] = useState([]); 
-  const [checkedTag, setCheckedTag] = useState([]); 
+  const [checked, setChecked] = useState([]);
+  const [checkedTag, setCheckedTag] = useState([]);
   const [body, setBody] = useState(blogFromLS());
   const [values, setValues] = useState({
     error: "",
@@ -98,7 +97,6 @@ const CreateBlog = ({ router }) => {
 
   const handleChange = (name) => (e) => {
     const value = name === "photo" ? e.target.files[0] : e.target.value;
-
     formData.set(name, value);
     setValues({ ...values, [name]: value, formData, error: "" });
   };
@@ -114,7 +112,6 @@ const CreateBlog = ({ router }) => {
 
   const handleToggle = (c) => () => {
     setValues({ ...values, error: "" });
-
     const clickedCategory = checked.indexOf(c);
     const all = [...checked];
 
@@ -278,10 +275,11 @@ const CreateBlog = ({ router }) => {
               {showCategories()}
             </ul>
           </div>
-          
+
           <div>
             <h5>Tags</h5>
             <hr />
+
             <ul style={{ maxHeight: "200px", overflowY: "scroll" }}>
               {showTags()}
             </ul>
@@ -292,4 +290,4 @@ const CreateBlog = ({ router }) => {
   );
 };
 
-export default withRouter(CreateBlog);
+export default CreateBlog;
