@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { withRouter } from "next/router";
 
 import { getCookie } from "../../api/auth";
 import { getCategories } from "../../api/category";
@@ -10,7 +11,7 @@ import "../../node_modules/react-quill/dist/quill.snow.css";
 
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-const CreateBlog = () => {
+const CreateBlog = ({router}) => {
   const blogFromLS = () => {
     if (typeof window === "undefined") {
       return false;
@@ -290,4 +291,4 @@ const CreateBlog = () => {
   );
 };
 
-export default CreateBlog;
+export default withRouter(CreateBlog);

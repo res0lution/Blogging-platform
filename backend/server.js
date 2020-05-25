@@ -24,7 +24,7 @@ mongoose
   })
   .then(() => console.log("DB connected"))
   .catch((err) => {
-    console.log(err);
+    console.log("Error! Can`t connect to DB.");
   });
 
 app.use(morgan("dev"));
